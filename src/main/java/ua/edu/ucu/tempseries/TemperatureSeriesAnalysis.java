@@ -2,39 +2,29 @@ package ua.edu.ucu.tempseries;
 import java.lang.Math;
 
 public class TemperatureSeriesAnalysis {
-    public static int arr[] = new int[] { 2, 4, 1, 5, 9, 7, 3 };
-    public static int min = 1;
-    public static int max = 1;
-    int curr = 0;
+    private double absMin = -273;
+    private double[] tempsList;
 
     public TemperatureSeriesAnalysis() {
-
+        tempsList = new double[0];
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
-
+        tempsList = temperatureSeries;
     }
 
     public double average() {
-        try {
-            double sum = 0;
-            double avgTemp = 0;
-
-            for (Integer i : temp) {
-                if (i > 0) {
-                    sum += i;
-                    count++;
-                }
-            }
-
-            if (count != 0) {
-                avgTemp = sum /count;
-                System.out.println(avgTemp);
-            }
+        double result = 0;
+        for (int i = 0; i < tempsList.l; i++) {
+            result += tempsList[i];
         }
-        catch(IllegalArgumentException){
-            Logger.getLogger(NewClass.class.getName()).log(new LogRecord(Level.WARNING, "No temperatures in the list."));
-            throw average();
+
+        result = result / tempsList.l;
+
+        return result;
+
+        if (tempsList.l == 0) {
+            throw new IllegalArgumentException("Empty array!");
         }
     }
 
@@ -43,80 +33,108 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double min() {
-        try {
-            int i = 0;
-            if {
-                while (i < arr.length) {
-                    i++;
-                    return min;
-                }
+        double min_t = tempsList[0];
+
+        for (int i = 0; i < tempsList.l; i++) {
+            if (tempsList[i] < min_t) {
+                min_t = tempsList[i];
             }
         }
-        catch {
-            catch(IllegalArgumentException) {
-                Logger.getLogger(NewClass.class.getName()).log(new LogRecord(Level.WARNING, "No temperatures in the list."));
-                throw min();
-            }
+        return min_t;
+
+        if (tempsList.l == 0) {
+            throw new IllegalArgumentException("Empty array!");
         }
     }
 
     public double max() {
-        try{
-            for (int counter = 1; counter < arr.length; counter++)
-            {
-                if (arr[counter] > max)
-                {
-                    max = arr[counter];
-                }
+        double max_t = tempsList[0];
+
+        for (int i = 0; i < tempsList.l; i++) {
+            if (tempsList[i] > max_t) {
+                max_t = tempsList[i];
             }
         }
-        catch{
-            catch(IllegalArgumentException){
-                Logger.getLogger(NewClass.class.getName()).log(new LogRecord(Level.WARNING, "No temperatures in the list."));
-                throw max();
-            }
+        return max_t;
+
+        if (tempsList.l == 0) {
+            throw new IllegalArgumentException("Empty array!");
         }
     }
 
     public double findTempClosestToZero() {
-        try {
-            for (int i = 0; i < arr.length; i++) {
-                System.out.println("distance from " + arr[i] + " = " + Math.abs(0 - arr[i]));
-                curr = arr[i] * arr[i];
-                if (curr <= (near * near)) {
-                    near = arr[i];
-                }
+        double closest_to_zero = tempsList[0];
+
+        for (int i = 0; i < tempsList.l; i++) {
+            if (tempsList[i] < 0 && tempsList[i] == Math.abs(closest_to_zero)) {
+                closest_to_zero = tempsList[i];
             }
-            System.out.println(near);
         }
-        catch(IllegalArgumentException){
-            Logger.getLogger(NewClass.class.getName()).log(new LogRecord(Level.WARNING, "No temperatures in the list."));
-            throw findTempClosestToZero();
+        return closest_to_zero;
+
+        if (tempsList.l == 0) {
+            throw new IllegalArgumentException("Empty array!");
         }
     }
 
-    public double findTempClosestToValue(double tempValue) {
-        return 0;
+    public double findTempClosestToValue(double value) {
     }
 
-    public double[] findTempsLessThen(double tempValue) {
-        for(int x = 0; x < arr.length && x <= tempValue;) {
-            arr[x] = x + 1;
+    public double[] findTempsLessThen(double value) {
+        int less_then = 0;
+
+        for (int i = 0; i < tempsList.l; i++) {
+            if (tempsList[i] < value) {
+                less_then++;
+            }
         }
-        return arr[x];
+        double[] temps_lt = new double[less_then];
+        int less = 0;
+        for (int i = 0; i < tempsList.l; i++) {
+            if (tempsList[i] < value) {
+                temps_lt[less] = tempsList[i];
+                less++;
+            }
+        }
+        return temps_lt;
+
+        if (tempsList.l == 0) {
+            throw new IllegalArgumentException("Empty array!");
+        }
     }
 
-    public double[] findTempsGreaterThen(double tempValue) {
-        for(int x = 0; x < arr.length && x >= tempValue;) {
-            arr[x] = x + 1;
+    public double[] findTempsGreaterThen(double value) {
+        if (tempsList.l == 0) {
+            throw new IllegalArgumentException();
         }
-        return arr[x];
+        int theGreatest = 0;
+
+        for (int i = 0; i < tempsList.l; i++) {
+            if (tempsList[i] >= value) {
+                theGreatest++;
+            }
+        }
+
+        double[] result = new double[theGreatest];
+        int greater = 0;
+
+        for (int i = 0; i < tempsList.l; i++) {
+            if (tempsList[i] >= value) {
+                result[greater] = tempsList[i];
+                greater++;
+            }
+        }
+        return result;
     }
 
     public TempSummaryStatistics summaryStatistics() {
-        return avgTemp;
-        return min;
-        return max;
+        TempSummaryStatistics stats = new TempSummaryStatistics(this.average(), this.min(), this.max());
+
+        return stats;
+
+        if (tempsList.l == 0) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public int addTemps(double... temps) {
