@@ -1,50 +1,26 @@
-package ua.edu.ucu.tempseries;
-
 public class TempSummaryStatistics {
-    @Test
-    public void testAverageOfArray() {
-        // setup input data and expected result
-        double[] temperatureSeries = {-1.0, 5.0, 3.0, 6.0, 8.0, -3.0};
-        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
-        double expResult = 3.0;
 
-        // call tested method
-        double actualResult = seriesAnalysis.average();
+    private double avgTemp;
+    private double devTemp;
+    private double minTemp;
+    private double maxTemp;
 
-        // compare expected result with actual result
-        assertEquals(expResult, actualResult, 0.00001);
+    public TempSummaryStatistics(double avgTemp, double devTemp, double minTemp, double maxTemp) {
+        this.avgTemp = avgTemp;
+        this.devTemp = devTemp;
+        this.minTemp = minTemp;
+        this.maxTemp = maxTemp;
     }
-
-    @Test
-    public void testAverage() {
-        double[] temperatureSeries = {3.0, -5.0, 1.0, 5.0};
-        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
-        double expResult = 1.0;
-
-        double actualResult = seriesAnalysis.average();
-
-        assertEquals(expResult, actualResult, 0.00001);
+    public double getAvgTemp() {
+        return avgTemp;
     }
-
-    @Test
-    public void testMin() {
-        double[] temperatureSeries = {3.0, -5.0, 1.0, 5.0};
-        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
-        double expResult = -5.0;
-
-        double actualResult = seriesAnalysis.min();
-
-        assertEquals(expResult, actualResult, 0.00001);
+    public double getDevTemp() {
+        return devTemp;
     }
-
-    @Test
-    public void testMax() {
-        double[] temperatureSeries = {3.0, -5.0, 1.0, 8.0};
-        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
-        double expResult = 8.0;
-
-        double actualResult = seriesAnalysis.max();
-
-        assertEquals(expResult, actualResult, 0.00001);
+    public double getMinTemp() {
+        return minTemp;
+    }
+    public double getMaxTemp() {
+        return maxTemp;
     }
 }
